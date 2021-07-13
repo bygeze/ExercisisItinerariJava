@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>LISTADO DE LIBROS</title>
+	</head>
+	<body>
+		<h3>Usuario: <span th:text="${usuario.username}"></span></h3>
+		<h3>Password: <span th:text="${usuario.password}"></span></h3>
+		
+		<h1>Listado de Libros</h1>
+		<table border="1">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Titulo</th>
+					<th>Autor</th>
+					<th>Editorial</th>
+					<th>Fecha</th>
+					<th>Tematica</th>
+					<th>Borrar</th>
+					<th>Modificar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${libros.empty}">
+					<td colspan="6">No books available</td>
+				</tr>
+				<tr th:each="libro : ${libros}">
+					<td><span th:text="${libro.id}"></span></td>
+					<td><span th:text="${libro.titulo}"></span></td>
+					<td><span th:text="${libro.autor}"></span></td>
+					<td><span th:text="${libro.editorial}"></span></td>
+					<td><span th:text="${libro.fecha}"></span></td>
+					<td><span th:text="${libro.tematica}"></span></td>
+					<td><a th:href="@{/deleteBook/}+${libro.id}">XXX</a></td>
+					<td><a th:href="@{/modifyBook/}+${libro.id}">Mod</a></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<h3>Añadir un libro a la lista</h3>
+		<form th:action="${action}" method="post">
+			<label>ID: </label>
+			<input type="text" name="id" th:value="${libro?.id}">
+			
+			<br>
+			
+			<label>TITULO: </label>
+			<input type="text" name="titulo" th:value="${libro?.titulo}">
+			
+			<label>AUTOR: </label>
+			<input type="text" name="autor" th:value="${libro?.autor}">
+			
+			<br>
+			
+			<label>EDITORIAL</label>
+			<input type="text" name="editorial" th:value="${libro?.editorial}">
+			
+			<label>FECHA</label>
+			<input type="text" name="fecha" th:value="${libro?.fecha}">
+
+			<label>TEMATICA</label>
+			<input type="text" name="tematica" th:value="${libro?.tematica}">
+			
+			<br>
+			
+			<input type="submit" name="submit" th:value="${button}">
+		</form>
+	</body>
+</html>
